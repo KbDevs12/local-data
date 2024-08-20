@@ -1,0 +1,119 @@
+const fs = require("fs");
+const path = require("path");
+
+// Fungsi untuk mendapatkan path lengkap file database
+const getDBPath = (filename) => {
+  return path.join(__dirname, filename);
+};
+
+// Fungsi untuk membaca data dari database
+const readDB = (filename) => {
+  const dbPath = getDBPath(filename);
+  try {
+    const data = fs.readFileSync(dbPath, "utf-8");
+    return JSON.parse(data);
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      // File tidak ditemukan, buat file baru
+      console.warn(`File ${filename} tidak ditemukan, membuat file baru...`);
+      writeDB(filename, {});
+      return {};
+    } else {
+      console.error("Error saat membaca database:", error);
+      throw error;
+    }
+  }
+};
+
+// Fungsi untuk menulis data ke database
+const writeDB = (filename, data) => {
+  const dbPath = getDBPath(filename);
+  try {
+    const jsonString = JSON.stringify(data, null, 2);
+    fs.writeFileSync(dbPath, jsonString, "utf-8");
+  } catch (error) {
+    console.error("Error saat menulis ke database:", error);
+    throw error;
+  }
+};
+
+// Fungsi untuk mendapatkan semua data
+const getAll = (filename) => {
+  const db = readDB(filename);
+  return db;
+};
+
+// Fungsi untuk mendapatkan data berdasarkan ID
+const getById = (filename, id) => {
+  const db = readDB(filename);
+  return db[id];
+};
+
+// Fungsi untuk membuat data baru
+const create = (filename, data) => {
+  try {
+    const db = readDB(filename);
+    const newId = Date.now().toString();
+    db[newId] = data;
+    writeDB(filename, db);
+    return newId;
+  } catch (error) {
+    console.error("Terjadi kesalahan saat membuat data:", error);
+    return null;
+  }
+};
+
+// Fungsi untuk menambahkan data baru
+const add = (filename, data) => {
+  try {
+    const db = readDB(filename);
+    const newId = Date.now().toString();
+    db[newId] = data;
+    writeDB(filename, db);
+    return newId;
+  } catch (error) {
+    console.error("Terjadi kesalahan saat menambahkan data:", error);
+    return null;
+  }
+};
+
+// Fungsi untuk memperbarui data berdasarkan ID
+const update = (filename, id, data) => {
+  try {
+    const db = readDB(filename);
+    if (db[id]) {
+      db[id] = data;
+      writeDB(filename, db);
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.error("Terjadi kesalahan saat memperbarui data:", error);
+    return false;
+  }
+};
+
+// Fungsi untuk menghapus data berdasarkan ID
+const deleteById = (filename, id) => {
+  try {
+    const db = readDB(filename);
+    if (db[id]) {
+      delete db[id];
+      writeDB(filename, db);
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.error("Terjadi kesalahan saat menghapus data:", error);
+    return false;
+  }
+};
+
+module.exports = {
+  getAll,
+  getById,
+  create,
+  add,
+  update,
+  deleteById,
+};
