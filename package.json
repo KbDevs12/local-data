@@ -1,5 +1,5 @@
 {
-  "name": "local-data",
+  "name": "@kang-bakso-development/local-data",
   "version": "1.0.0",
   "description": "make a local data in json",
   "main": "index.js",
