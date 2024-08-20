@@ -1,4 +1,4 @@
-# local-data
+# @kang-bakso-development/local-data
 
 **A simple npm package for easy JSON database management!**
 
@@ -17,12 +17,12 @@ This npm package allows you to create and manage a simple database using JSON fi
 
 ## Installation
 
-`npm install local-data`
+`npm install @kang-bakso-development/local-data`
 
 ## Usage
 
 ```
-const myDB = require("local-data");
+const myDB = require("@kang-bakso-development/local-data");
 
 // Create a new database file (if it doesn't exist) and add data
 const newId = myDB.create("myData.json", { name: "John", age: 30 });
