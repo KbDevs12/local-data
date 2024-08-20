@@ -17,7 +17,7 @@ This npm package allows you to create and manage a simple database using JSON fi
 
 ## Installation
 
-`npm install your-package-name`
+`npm install local-data`
 
 ## Usage
 
