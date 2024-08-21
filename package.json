@@ -1,8 +1,9 @@
 {
   "name": "@kang-bakso-development/local-data",
-  "version": "1.1.0",
+  "version": "1.0.2",
   "description": "make a local data in json",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
