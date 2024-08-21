@@ -11,8 +11,15 @@ const readDB = (filename) => {
     const data = fs.readFileSync(dbPath, "utf-8");
     return JSON.parse(data);
   } catch (error) {
-    console.error("Error saat membaca database:", error);
-    throw error;
+    if (error.code === "ENOENT") {
+      // File tidak ditemukan, buat file baru
+      console.warn(`File ${filename} tidak ditemukan, membuat file baru...`);
+      writeDB(filename, {});
+      return {};
+    } else {
+      console.error("Error saat membaca database:", error);
+      throw error;
+    }
   }
 };
 
