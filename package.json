@@ -1,6 +1,6 @@
 {
   "name": "@kang-bakso-development/local-data",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "make a local data in json",
   "main": "index.js",
   "types": "index.d.ts",
